@@ -1,7 +1,9 @@
-cat > app.py << 'EOF'
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+
+# Import after setting environment variables
+os.environ["PYTHONPATH"] = "/app"
 
 from demoPanda_api import (
     fetch_products,
@@ -26,6 +28,10 @@ app.add_middleware(
 def root():
     return {"status": "PandaAI API running!"}
 
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
 @app.get("/fetch_products")
 def get_products():
     return fetch_products()
@@ -37,4 +43,7 @@ def refine(product_id: str, image_url: str, prompt: str):
 @app.post("/upload_image")
 def upload(product_id: str, image_base64: str):
     return upload_image_to_shopify(product_id, image_base64)
-EOF
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8080)

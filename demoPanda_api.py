@@ -1,5 +1,3 @@
-
-cat > demoPanda_api.py << 'EOF'
 import os
 import json
 import base64
@@ -102,4 +100,3 @@ def upload_image_to_shopify(product_id: str, image_base64: str):
 
     except Exception as e:
         return {"error": str(e)}
-EOF

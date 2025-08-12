@@ -1,8 +1,9 @@
-cat > .dockerignore << 'EOF'
 .git
 __pycache__
 *.pyc
 .env
 .gitignore
 README.md
-EOF
+Dockerfile
+.dockerignore
+start.sh
