@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+from pydantic import BaseModel
 
 # Import after setting environment variables
 os.environ["PYTHONPATH"] = "/app"
@@ -24,6 +25,16 @@ app.add_middleware(
     allow_credentials=True,
 )
 
+# Define request models
+class RefineImageRequest(BaseModel):
+    product_id: str
+    image_url: str
+    prompt: str
+
+class UploadImageRequest(BaseModel):
+    product_id: str
+    image_base64: str
+
 @app.get("/")
 def root():
     return {"status": "PandaAI API running!"}
@@ -37,12 +48,12 @@ def get_products():
     return fetch_products()
 
 @app.post("/refine_image")
-def refine(product_id: str, image_url: str, prompt: str):
-    return refine_image(image_url, prompt)
+def refine_image(request: RefineImageRequest):
+    return refine_image(request.image_url, request.prompt)
 
 @app.post("/upload_image")
-def upload(product_id: str, image_base64: str):
-    return upload_image_to_shopify(product_id, image_base64)
+def upload_image(request: UploadImageRequest):
+    return upload_image_to_shopify(request.product_id, request.image_base64)
 
 if __name__ == "__main__":
     import uvicorn
