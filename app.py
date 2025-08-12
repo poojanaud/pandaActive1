@@ -8,7 +8,7 @@ os.environ["PYTHONPATH"] = "/app"
 
 from demoPanda_api import (
     fetch_products,
-    refine_image,
+    refine_image as process_image_refinement,
     upload_image_to_shopify,
 )
 
@@ -48,11 +48,11 @@ def get_products():
     return fetch_products()
 
 @app.post("/refine_image")
-def refine_image(request: RefineImageRequest):
-    return refine_image(request.image_url, request.prompt)
+def refine_image_endpoint(request: RefineImageRequest):
+    return process_image_refinement(request.image_url, request.prompt)
 
 @app.post("/upload_image")
-def upload_image(request: UploadImageRequest):
+def upload_image_endpoint(request: UploadImageRequest):
     return upload_image_to_shopify(request.product_id, request.image_base64)
 
 if __name__ == "__main__":
