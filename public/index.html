@@ -17,6 +17,13 @@
             border-radius: 8px;
             margin-top: 20px;
         }
+        .endpoint-section {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
         button {
             background: #4CAF50;
             color: white;
@@ -24,6 +31,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin: 5px;
         }
         button:hover {
             background: #45a049;
@@ -34,40 +42,121 @@
             background: white;
             border-radius: 4px;
             white-space: pre-wrap;
+            border: 1px solid #ddd;
+        }
+        .error {
+            color: #d32f2f;
+        }
+        .success {
+            color: #388e3c;
         }
     </style>
 </head>
 <body>
-    <h1>🐼 PandaAI API</h1>
+    <h1>🐼 PandaAI API Test Dashboard</h1>
     <div class="container">
-        <h2>Test API Connection</h2>
-        <p>Click the button below to test the connection to your Cloud Run backend:</p>
-        <button onclick="testAPI()">Test API Connection</button>
+        <h2>Test API Endpoints</h2>
+        
+        <div class="endpoint-section">
+            <h3>Basic Endpoints</h3>
+            <button onclick="testRoot()">Test Root (/)</button>
+            <button onclick="testHealth()">Test Health (/health)</button>
+        </div>
+
+        <div class="endpoint-section">
+            <h3>Shopify Integration</h3>
+            <button onclick="testFetchProducts()">Test Fetch Products</button>
+        </div>
+
+        <div class="endpoint-section">
+            <h3>Image Processing</h3>
+            <button onclick="testRefineImage()">Test Refine Image</button>
+            <button onclick="testUploadImage()">Test Upload Image</button>
+        </div>
+
         <div id="result"></div>
     </div>
 
     <script>
-        async function testAPI() {
-            const resultDiv = document.getElementById('result');
-            resultDiv.textContent = 'Testing API connection...';
-            
+        const baseUrl = 'https://panda-api-502926007815.australia-southeast2.run.app';
+        const resultDiv = document.getElementById('result');
+
+        function showResult(data, isError = false) {
+            const className = isError ? 'error' : 'success';
+            resultDiv.innerHTML = `<div class="${className}">${JSON.stringify(data, null, 2)}</div>`;
+        }
+
+        async function testRoot() {
             try {
-                const cloudRunUrl = 'https://panda-api-502926007815.australia-southeast2.run.app';
-                
-                const response = await fetch(cloudRunUrl);
+                resultDiv.textContent = 'Testing root endpoint...';
+                const response = await fetch(baseUrl);
                 const data = await response.json();
-                
-                resultDiv.innerHTML = `
-                    <h3>✅ API Connected Successfully!</h3>
-                    <strong>Response:</strong>
-                    <pre>${JSON.stringify(data, null, 2)}</pre>
-                `;
+                showResult(data);
             } catch (error) {
-                resultDiv.innerHTML = `
-                    <h3>❌ Connection Failed</h3>
-                    <strong>Error:</strong> ${error.message}
-                    <p><small>Make sure you've deployed your Cloud Run service and updated the URL in this file.</small></p>
-                `;
+                showResult({error: error.message}, true);
+            }
+        }
+
+        async function testHealth() {
+            try {
+                resultDiv.textContent = 'Testing health endpoint...';
+                const response = await fetch(`${baseUrl}/health`);
+                const data = await response.json();
+                showResult(data);
+            } catch (error) {
+                showResult({error: error.message}, true);
+            }
+        }
+
+        async function testFetchProducts() {
+            try {
+                resultDiv.textContent = 'Testing fetch products...';
+                const response = await fetch(`${baseUrl}/fetch_products`);
+                const data = await response.json();
+                showResult(data);
+            } catch (error) {
+                showResult({error: error.message}, true);
+            }
+        }
+
+        async function testRefineImage() {
+            try {
+                resultDiv.textContent = 'Testing refine image...';
+                const response = await fetch(`${baseUrl}/refine_image`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_id: '123',
+                        image_url: 'https://onlinejpgtools.com/images/examples-onlinejpgtools/mountain-scene.jpg',
+                        prompt: 'Make this image look professional'
+                    })
+                });
+                const data = await response.json();
+                showResult(data);
+            } catch (error) {
+                showResult({error: error.message}, true);
+            }
+        }
+
+        async function testUploadImage() {
+            try {
+                resultDiv.textContent = 'Testing upload image...';
+                const response = await fetch(`${baseUrl}/upload_image`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_id: '123',
+                        image_base64: 'base64-encoded-image-data'
+                    })
+                });
+                const data = await response.json();
+                showResult(data);
+            } catch (error) {
+                showResult({error: error.message}, true);
             }
         }
     </script>
