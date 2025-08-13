@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from pydantic import BaseModel
-from demoPanda_api import refine_image_from_data  # Note: We'll rename this function
+from demoPanda_api import refine_image_from_data
 
 app = FastAPI()
 
@@ -16,7 +16,6 @@ app.add_middleware(
     allow_credentials=True,
 )
 
-# Request body model
 class RefineImageRequest(BaseModel):
     product_id: str
     image_base64: str
