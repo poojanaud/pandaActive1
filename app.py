@@ -2,21 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from pydantic import BaseModel
-
-# Import after setting environment variables
-os.environ["PYTHONPATH"] = "/app"
-
-from demoPanda_api import (
-    fetch_products,
-    refine_image_from_data,
-    upload_image_to_shopify,
-)
+from demoPanda_api import refine_image_from_data  # Note: We'll rename this function
 
 app = FastAPI()
 
 # CORS Configuration
 FRONTEND_URL = os.getenv("FRONTEND_URL", "https://developmentpanda-468723.web.app")
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[FRONTEND_URL],
@@ -25,36 +16,20 @@ app.add_middleware(
     allow_credentials=True,
 )
 
-# Define request models
+# Request body model
 class RefineImageRequest(BaseModel):
     product_id: str
     image_base64: str
     prompt: str
 
-class UploadImageRequest(BaseModel):
-    product_id: str
-    image_base64: str
-
 @app.get("/")
 def root():
     return {"status": "PandaAI API running!"}
 
-@app.get("/health")
-def health_check():
-    return {"status": "healthy"}
-
-@app.get("/fetch_products")
-def get_products():
-    return fetch_products()
-
 @app.post("/refine_image")
 def refine_image_endpoint(request: RefineImageRequest):
-    return refine_image_from_data(request.image_base64, request.prompt)
-
-@app.post("/upload_image")
-def upload_image_endpoint(request: UploadImageRequest):
-    return upload_image_to_shopify(request.product_id, request.image_base64)
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    try:
+        result = refine_image_from_data(request.image_base64, request.prompt)
+        return result
+    except Exception as e:
+        return {"error": str(e)}

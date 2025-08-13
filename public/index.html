@@ -84,6 +84,7 @@
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s;
+            margin-right: 10px;
         }
         button:hover {
             background: #45a049;
@@ -136,18 +137,6 @@
             color: #333;
             text-align: center;
         }
-        .preset-images {
-            margin: 10px 0;
-        }
-        .preset-images button {
-            margin: 5px;
-            padding: 5px 10px;
-            font-size: 12px;
-            background: #007bff;
-        }
-        .preset-images button:hover {
-            background: #0056b3;
-        }
     </style>
 </head>
 <body>
@@ -157,15 +146,7 @@
         <div class="controls">
             <div class="input-group">
                 <label for="imageUrl">Image URL:</label>
-                <input type="text" id="imageUrl" placeholder="Enter image URL" value="https://via.placeholder.com/1024x1024.png?text=Test+Image">
-            </div>
-            
-            <div class="preset-images">
-                <strong>Quick test images:</strong>
-                <button onclick="setImageUrl('https://via.placeholder.com/1024x1024.png?text=Test+Image')">Placeholder</button>
-                <button onclick="setImageUrl('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1024&h=1024&fit=crop')">Nature</button>
-                <button onclick="setImageUrl('https://images.unsplash.com/photo-1543852786-1cf6624c9987?w=1024&h=1024&fit=crop')">City</button>
-                <button onclick="setImageUrl('https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1024px-A_small_cup_of_coffee.JPG')">Mountain</button>
+                <input type="text" id="imageUrl" placeholder="Enter image URL" value="https://picsum.photos/1024/1024.jpg">
             </div>
             
             <div class="input-group">
@@ -173,7 +154,8 @@
                 <textarea id="prompt" placeholder="Describe how you want the image to be refined">Make this image look more professional and clean</textarea>
             </div>
             
-            <button id="refineBtn" onclick="refineImage()">
+            <button id="loadBtn" onclick="loadImage()">Load Image</button>
+            <button id="refineBtn" onclick="refineImage()" disabled>
                 Refine Image
                 <span id="loadingSpinner" class="spinner" style="display: none;"></span>
             </button>
@@ -183,7 +165,7 @@
             <div class="image-container">
                 <h3>Original Image</h3>
                 <div class="image-box" id="originalImageContainer">
-                    <p>Enter an image URL and click "Refine Image"</p>
+                    <p>Click "Load Image" first</p>
                 </div>
             </div>
             
@@ -200,6 +182,7 @@
 
     <script>
         const baseUrl = 'https://panda-api-502926007815.australia-southeast2.run.app';
+        const loadBtn = document.getElementById('loadBtn');
         const refineBtn = document.getElementById('refineBtn');
         const loadingSpinner = document.getElementById('loadingSpinner');
         const resultDiv = document.getElementById('result');
@@ -207,11 +190,8 @@
         const refinedImageContainer = document.getElementById('refinedImageContainer');
         const imageUrlInput = document.getElementById('imageUrl');
         const promptInput = document.getElementById('prompt');
-
-        function setImageUrl(url) {
-            imageUrlInput.value = url;
-            loadOriginalImage(url);
-        }
+        
+        let loadedImageData = null;
 
         function showResult(message, type = 'info') {
             const className = type;
@@ -219,35 +199,84 @@
         }
 
         function showLoading(isLoading) {
-            refineBtn.disabled = isLoading;
+            refineBtn.disabled = isLoading || !loadedImageData;
             loadingSpinner.style.display = isLoading ? 'inline-block' : 'none';
         }
 
-        function loadOriginalImage(url) {
-            originalImageContainer.innerHTML = `<img src="${url}" alt="Original Image" onerror="this.onerror=null; this.src=''; this.parentElement.innerHTML='<p>Failed to load image. Try a different URL.</p>';">`;
+        function displayOriginalImage(imgElement) {
+            originalImageContainer.innerHTML = '';
+            originalImageContainer.appendChild(imgElement);
         }
 
         function displayRefinedImage(base64Data) {
             refinedImageContainer.innerHTML = `<img src="data:image/png;base64,${base64Data}" alt="Refined Image">`;
         }
 
-        async function refineImage() {
+        async function loadImage() {
             const imageUrl = imageUrlInput.value.trim();
-            const prompt = promptInput.value.trim();
-
+            
             if (!imageUrl) {
                 showResult('Please enter an image URL', 'error');
                 return;
             }
+
+            showResult('Loading image...');
+            loadBtn.disabled = true;
+
+            try {
+                // Fetch the image
+                const response = await fetch(imageUrl);
+                if (!response.ok) {
+                    throw new Error(`Failed to load image: ${response.status}`);
+                }
+                
+                const blob = await response.blob();
+                const base64data = await blobToBase64(blob);
+                
+                // Display the image
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.onload = function() {
+                    displayOriginalImage(img);
+                    loadedImageData = base64data;
+                    refineBtn.disabled = false;
+                    showResult('Image loaded successfully! You can now refine it.', 'success');
+                };
+                img.onerror = function() {
+                    showResult('Failed to display image', 'error');
+                    loadBtn.disabled = false;
+                };
+                
+            } catch (error) {
+                showResult(`Error loading image: ${error.message}`, 'error');
+                loadBtn.disabled = false;
+            }
+        }
+
+        function blobToBase64(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result.split(',')[1]); // Get base64 part only
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        async function refineImage() {
+            const prompt = promptInput.value.trim();
 
             if (!prompt) {
                 showResult('Please enter a refinement prompt', 'error');
                 return;
             }
 
+            if (!loadedImageData) {
+                showResult('Please load an image first', 'error');
+                return;
+            }
+
             showLoading(true);
-            showResult('Processing image...');
-            loadOriginalImage(imageUrl);
+            showResult('Refining image...');
 
             try {
                 const response = await fetch(`${baseUrl}/refine_image`, {
@@ -257,7 +286,7 @@
                     },
                     body: JSON.stringify({
                         product_id: "123",
-                        image_url: imageUrl,
+                        image_base64: loadedImageData,
                         prompt: prompt
                     })
                 });
@@ -277,11 +306,7 @@
                 }
 
                 if (data.error) {
-                    if (data.error.includes('Failed to download image') || data.error.includes('503')) {
-                        showResult(`Image download failed: ${data.error}\n\nTry using a different image URL from the preset buttons above.`, 'error');
-                    } else {
-                        showResult(`API Error: ${data.error}`, 'error');
-                    }
+                    showResult(`API Error: ${data.error}`, 'error');
                 } else if (data.image_base64) {
                     displayRefinedImage(data.image_base64);
                     showResult('Image refined successfully!', 'success');
@@ -306,7 +331,7 @@
 
         // Load default image on page load
         window.onload = function() {
-            loadOriginalImage(imageUrlInput.value);
+            // Don't auto-load, wait for user to click "Load Image"
         };
     </script>
 </body>
