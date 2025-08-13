@@ -8,12 +8,12 @@ from io import BytesIO
 from PIL import Image
 import openai
 import logging
+import time
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Remove load_dotenv() since we're using Cloud Run environment variables
 SHOPIFY_API_KEY = os.getenv("SHOPIFY_API_KEY")
 SHOPIFY_SHOP_NAME = os.getenv("SHOPIFY_SHOP_NAME")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -45,6 +45,7 @@ def fetch_products():
 
 def refine_image_from_data(image_base64: str, prompt: str):
     logger.info("Starting image refinement process")
+    start_time = time.time()
     
     if not OPENAI_API_KEY:
         logger.error("OpenAI API key missing")
@@ -72,7 +73,7 @@ def refine_image_from_data(image_base64: str, prompt: str):
             prompt=prompt,
             size="1024x1024",
             n=1,
-            timeout=60  # Added timeout to prevent hanging
+            timeout=60
         )
         
         logger.info(f"OpenAI response received: {res}")
@@ -86,8 +87,12 @@ def refine_image_from_data(image_base64: str, prompt: str):
             logger.error("OpenAI returned empty image data")
             return {"error": "OpenAI returned empty image data"}
         
-        result = {"image_base64": image_data}
-        logger.info(f"Returning image data, size: {len(image_data)} characters")
+        processing_time = time.time() - start_time
+        result = {
+            "image_base64": image_data,
+            "processing_time": processing_time
+        }
+        logger.info(f"Returning image data, size: {len(image_data)} characters, processing_time: {processing_time}")
         return result
         
     except openai.Timeout as e:
