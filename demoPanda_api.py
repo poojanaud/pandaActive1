@@ -48,7 +48,8 @@ def refine_image(image_url: str, prompt: str):
         return {"error": "OpenAI API key missing"}
 
     try:
-        resp = requests.get(image_url, timeout=20)
+        # Increase timeout to 60 seconds
+        resp = requests.get(image_url, timeout=60)
         resp.raise_for_status()
 
         img = Image.open(BytesIO(resp.content)).convert("RGBA")
@@ -59,7 +60,7 @@ def refine_image(image_url: str, prompt: str):
 
         client = openai.OpenAI(api_key=OPENAI_API_KEY)
         res = client.images.edit(
-            model="gpt-image-1",
+            model="dall-e-2",
             image=buf,
             prompt=prompt,
             size="1024x1024",
@@ -71,6 +72,10 @@ def refine_image(image_url: str, prompt: str):
 
         return {"image_base64": res.data[0].b64_json}
 
+    except requests.exceptions.Timeout:
+        return {"error": "Image download timed out. Please try a different image URL."}
+    except requests.exceptions.RequestException as e:
+        return {"error": f"Failed to download image: {str(e)}"}
     except Exception as e:
         return {"error": str(e)}
 
