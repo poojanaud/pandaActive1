@@ -200,6 +200,25 @@
             <span class="truncate">Loading...</span>
           </button>
         </header>
+        
+        <!-- Moved navigation bar to top -->
+        <div class="pb-3 border-b border-[#dbe6db]">
+          <div class="flex border-b border-[#dbe6db] px-10 gap-8">
+            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-[#111811] text-[#111811] pb-[13px] pt-4" href="#" onclick="showTab('gallery'); return false;">
+              <p class="text-[#111811] text-sm font-bold leading-normal tracking-[0.015em]">Product Gallery</p>
+            </a>
+            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#608a60] pb-[13px] pt-4" href="#" onclick="showTab('enhancement'); return false;">
+              <p class="text-[#608a60] text-sm font-bold leading-normal tracking-[0.015em]">Image Enhancement</p>
+            </a>
+            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#608a60] pb-[13px] pt-4" href="#" onclick="showTab('comparison'); return false;">
+              <p class="text-[#608a60] text-sm font-bold leading-normal tracking-[0.015em]">Before/After</p>
+            </a>
+            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#608a60] pb-[13px] pt-4" href="#" onclick="showTab('review'); return false;">
+              <p class="text-[#608a60] text-sm font-bold leading-normal tracking-[0.015em]">Review &amp; Upload</p>
+            </a>
+          </div>
+        </div>
+        
         <div class="px-40 flex flex-1 justify-center py-5">
           <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
             <!-- Product Gallery Tab -->
@@ -379,23 +398,6 @@
               </div>
             </div>
             
-            <div class="pb-3">
-              <div class="flex border-b border-[#dbe6db] px-4 gap-8">
-                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-[#111811] text-[#111811] pb-[13px] pt-4" href="#" onclick="showTab('gallery'); return false;">
-                  <p class="text-[#111811] text-sm font-bold leading-normal tracking-[0.015em]">Product Gallery</p>
-                </a>
-                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#608a60] pb-[13px] pt-4" href="#" onclick="showTab('enhancement'); return false;">
-                  <p class="text-[#608a60] text-sm font-bold leading-normal tracking-[0.015em]">Image Enhancement</p>
-                </a>
-                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#608a60] pb-[13px] pt-4" href="#" onclick="showTab('comparison'); return false;">
-                  <p class="text-[#608a60] text-sm font-bold leading-normal tracking-[0.015em]">Before/After</p>
-                </a>
-                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#608a60] pb-[13px] pt-4" href="#" onclick="showTab('review'); return false;">
-                  <p class="text-[#608a60] text-sm font-bold leading-normal tracking-[0.015em]">Review &amp; Upload</p>
-                </a>
-              </div>
-            </div>
-            
             <div id="result" class="px-4"></div>
           </div>
         </div>
@@ -403,7 +405,7 @@
     </div>
 
     <script>
-        const baseUrl = 'https://panda-api-502926007815.australia-southeast2.run.app'; // Using relative path for Firebase Hosting reverse proxy
+        const baseUrl = 'https://panda-api-502926007815.australia-southeast2.run.app';
         let products = [];
         let selectedProducts = new Set();
         let processedResults = [];
