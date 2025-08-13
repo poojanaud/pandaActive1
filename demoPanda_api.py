@@ -43,16 +43,16 @@ def fetch_products():
     except Exception as e:
         return {"error": str(e)}
 
-def refine_image(image_url: str, prompt: str):
+def refine_image_from_data(image_base64: str, prompt: str):
     if not OPENAI_API_KEY:
         return {"error": "OpenAI API key missing"}
 
     try:
-        # Increase timeout to 60 seconds
-        resp = requests.get(image_url, timeout=60)
-        resp.raise_for_status()
-
-        img = Image.open(BytesIO(resp.content)).convert("RGBA")
+        # Convert base64 to image
+        image_data = base64.b64decode(image_base64)
+        img = Image.open(BytesIO(image_data)).convert("RGBA")
+        
+        # Save to buffer
         buf = BytesIO()
         img.save(buf, format="PNG")
         buf.seek(0)
@@ -72,10 +72,6 @@ def refine_image(image_url: str, prompt: str):
 
         return {"image_base64": res.data[0].b64_json}
 
-    except requests.exceptions.Timeout:
-        return {"error": "Image download timed out. Please try a different image URL."}
-    except requests.exceptions.RequestException as e:
-        return {"error": f"Failed to download image: {str(e)}"}
     except Exception as e:
         return {"error": str(e)}
 

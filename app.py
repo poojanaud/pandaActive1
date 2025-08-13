@@ -8,7 +8,7 @@ os.environ["PYTHONPATH"] = "/app"
 
 from demoPanda_api import (
     fetch_products,
-    refine_image as process_image_refinement,
+    refine_image_from_data,
     upload_image_to_shopify,
 )
 
@@ -28,7 +28,7 @@ app.add_middleware(
 # Define request models
 class RefineImageRequest(BaseModel):
     product_id: str
-    image_url: str
+    image_base64: str
     prompt: str
 
 class UploadImageRequest(BaseModel):
@@ -49,7 +49,7 @@ def get_products():
 
 @app.post("/refine_image")
 def refine_image_endpoint(request: RefineImageRequest):
-    return process_image_refinement(request.image_url, request.prompt)
+    return refine_image_from_data(request.image_base64, request.prompt)
 
 @app.post("/upload_image")
 def upload_image_endpoint(request: UploadImageRequest):
