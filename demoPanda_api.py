@@ -19,6 +19,40 @@ SHOPIFY_SHOP_NAME = os.getenv("SHOPIFY_SHOP_NAME")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 API_VERSION = "2023-07"
 
+def get_openai_credit_balance():
+    """Get the current credit balance from OpenAI API"""
+    try:
+        # OpenAI doesn't have a direct API for credit balance
+        # We'll use the subscription endpoint as an alternative
+        headers = {
+            "Authorization": f"Bearer {OPENAI_API_KEY}"
+        }
+        response = requests.get(
+            "https://api.openai.com/v1/dashboard/billing/subscription",
+            headers=headers
+        )
+        
+        if response.status_code != 200:
+            logger.error(f"Failed to get credit balance: {response.status_code}")
+            return {"error": f"Failed to get credit balance: {response.status_code}"}
+        
+        data = response.json()
+        
+        # Extract credit balance information
+        total_granted = data.get("hard_limit_usd", 0)
+        total_used = data.get("system_hard_limit_usd", 0) - data.get("hard_limit_usd", 0)
+        credit_balance = total_granted - total_used
+        
+        return {
+            "total_granted": total_granted,
+            "total_used": total_used,
+            "credit_balance": credit_balance,
+            "currency": "USD"
+        }
+    except Exception as e:
+        logger.error(f"Error getting credit balance: {str(e)}")
+        return {"error": str(e)}
+
 def get_clean_base_url(shop_name: str):
     if not shop_name:
         return ""
@@ -100,10 +134,10 @@ def refine_image_from_data(image_base64: str, prompt: str):
         return {"error": f"OpenAI API timeout: {str(e)}"}
     except openai.APIError as e:
         logger.error(f"OpenAI API error: {str(e)}")
-        return {"error": f"OpenAI API error: {str(e)}"}
+        return {"error": f"OpenAI API error: ${str(e)}"}
     except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}", exc_info=True)
-        return {"error": f"Unexpected error: {str(e)}"}
+        logger.error(f"Unexpected error: ${str(e)}", exc_info=True)
+        return {"error": f"Unexpected error: ${str(e)}"}
 
 def upload_image_to_shopify(product_id: str, image_base64: str):
     if not SHOPIFY_API_KEY or not SHOPIFY_SHOP_NAME:
@@ -116,7 +150,7 @@ def upload_image_to_shopify(product_id: str, image_base64: str):
         }
         payload = {"image": {"attachment": image_base64}}
         
-        endpoint = f"/admin/api/{API_VERSION}/products/{product_id}/images.json"
+        endpoint = f"/admin/api/{API_VERSION}/products/${product_id}/images.json"
         conn = http.client.HTTPSConnection(BASE_URL)
         conn.request("POST", endpoint, body=json.dumps(payload), headers=headers)
         response = conn.getresponse()
@@ -124,11 +158,11 @@ def upload_image_to_shopify(product_id: str, image_base64: str):
         conn.close()
         
         if response.status not in [200, 201]:
-            logger.error(f"Upload failed with status: {response.status}")
-            return {"error": f"Upload failed: {response.status}"}
+            logger.error(f"Upload failed with status: ${response.status}")
+            return {"error": f"Upload failed: ${response.status}"}
         
         logger.info("Image uploaded to Shopify successfully")
         return {"status": "success", "response": json.loads(body)}
     except Exception as e:
-        logger.error(f"Error uploading to Shopify: {str(e)}")
+        logger.error(f"Error uploading to Shopify: ${str(e)}")
         return {"error": str(e)}

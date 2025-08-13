@@ -23,6 +23,21 @@
             text-align: center;
             margin-bottom: 30px;
         }
+        .credit-balance {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #f0f7ff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-weight: bold;
+            color: #333;
+        }
+        .credit-balance.low {
+            background: #f8d7da;
+            color: #721c24;
+        }
         .tabs {
             display: flex;
             margin-bottom: 20px;
@@ -209,6 +224,7 @@
         .batch-controls .left-controls {
             display: flex;
             gap: 10px;
+            align-items: center;
         }
         .batch-controls .right-controls {
             display: flex;
@@ -311,9 +327,21 @@
             border-radius: 8px;
             text-align: center;
         }
+        .selected-count {
+            background: #e3f2fd;
+            color: #0d47a1;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
+    <div class="credit-balance" id="creditBalance">
+        API Credit: $0.00
+    </div>
+    
     <div class="header">
         <h1>🐼 PandaAI Image Refinement System</h1>
         <p>Automated e-commerce image enhancement using AI</p>
@@ -342,6 +370,7 @@
                     </div>
                     <div class="right-controls">
                         <button id="selectAllBtn" onclick="selectAll()">Select All</button>
+                        <span class="selected-count" id="selectedCount">0 selected</span>
                         <button id="processBatchBtn" onclick="processBatch()" disabled>Process Selected</button>
                     </div>
                 </div>
@@ -451,6 +480,35 @@
         let totalProcessingTime = 0;
         let processedCount = 0;
         
+        // OpenAI Credit Balance Function
+        async function getOpenAICreditBalance() {
+            try {
+                const response = await fetch(`${baseUrl}/openai_credit_balance`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    console.error("Error fetching OpenAI credit balance:", data.error);
+                    document.getElementById('creditBalance').textContent = "Error";
+                    return;
+                }
+                
+                // Update credit balance
+                const creditBalanceElement = document.getElementById('creditBalance');
+                creditBalanceElement.textContent = `API Credit: $${data.credit_balance.toFixed(2)}`;
+                
+                // Add warning class if balance is low (less than $5)
+                if (data.credit_balance < 5) {
+                    creditBalanceElement.classList.add('low');
+                } else {
+                    creditBalanceElement.classList.remove('low');
+                }
+                
+            } catch (error) {
+                console.error("Error fetching OpenAI credit balance:", error);
+                document.getElementById('creditBalance').textContent = "Error";
+            }
+        }
+        
         // Tab functionality
         function showTab(tabName) {
             // Hide all tab contents
@@ -537,6 +595,12 @@
             
             document.getElementById('processBatchBtn').disabled = selectedProducts.size === 0;
             updateStats();
+            updateSelectedCount();
+        }
+        
+        function updateSelectedCount() {
+            const count = selectedProducts.size;
+            document.getElementById('selectedCount').textContent = `${count} selected`;
         }
         
         function selectAll() {
@@ -558,6 +622,7 @@
             
             document.getElementById('processBatchBtn').disabled = selectedProducts.size === 0;
             updateStats();
+            updateSelectedCount();
         }
         
         function updateStats() {
@@ -681,6 +746,9 @@
             
             // Update review tab
             updateReviewTab();
+            
+            // Refresh credit balance after processing
+            getOpenAICreditBalance();
         }
         
         function updateComparisonTab() {
@@ -951,6 +1019,9 @@
                     document.getElementById('refinedImageContainer').innerHTML = 
                         `<img src="data:image/png;base64,${data.image_base64}" alt="Refined Image">`;
                     showResult(`Image refined successfully in ${data.processing_time.toFixed(1)} seconds!`, 'success');
+                    
+                    // Refresh credit balance after refining an image
+                    getOpenAICreditBalance();
                 } else {
                     showResult(`Unexpected API response: ${responseText}`, 'error');
                 }
@@ -986,6 +1057,9 @@
         window.onload = function() {
             // Auto-fetch products on load
             fetchProducts();
+            
+            // Get OpenAI credit balance on load
+            getOpenAICreditBalance();
         };
     </script>
 </body>

@@ -2,7 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from pydantic import BaseModel
-from demoPanda_api import fetch_products, refine_image_from_data, upload_image_to_shopify
+from demoPanda_api import (
+    fetch_products, 
+    refine_image_from_data, 
+    upload_image_to_shopify,
+    get_openai_credit_balance
+)
 
 app = FastAPI()
 
@@ -45,6 +50,14 @@ def refine_image_endpoint(request: RefineImageRequest):
 def upload_image_endpoint(request: UploadImageRequest):
     try:
         result = upload_image_to_shopify(request.product_id, request.image_base64)
+        return result
+    except Exception as e:
+        return {"error": str(e)}
+
+@app.get("/openai_credit_balance")
+def openai_credit_balance():
+    try:
+        result = get_openai_credit_balance()
         return result
     except Exception as e:
         return {"error": str(e)}
