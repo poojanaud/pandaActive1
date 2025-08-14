@@ -12,7 +12,7 @@ from demoPanda_api import (
 app = FastAPI()
 
 # CORS Configuration
-FRONTEND_URL = os.getenv("FRONTEND_URL", "https://developmentpanda-468723.web.app")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "https://www.pandavision.xyz/")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[FRONTEND_URL],
