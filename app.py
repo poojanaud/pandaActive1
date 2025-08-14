@@ -26,7 +26,7 @@ app.add_middleware(
 class RefineImageRequest(BaseModel):
     image_base64: str
     prompt: str
-
+# Shopify API configuration
 class UploadImageRequest(BaseModel):
     product_id: str
     image_base64: str
