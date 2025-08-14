@@ -8,7 +8,7 @@ from demoPanda_api import (
     upload_image_to_shopify,
     get_openai_credit_balance
 )
-
+# Load environment variables
 app = FastAPI()
 
 # CORS Configuration
