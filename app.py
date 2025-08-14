@@ -30,7 +30,7 @@ class RefineImageRequest(BaseModel):
 class UploadImageRequest(BaseModel):
     product_id: str
     image_base64: str
-
+# OpenAI API configuration
 @app.get("/")
 def root():
     return {"status": "PandaAI API running!"}
