@@ -5,6 +5,40 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/fetch_products",
+        "run": {
+          "serviceId": "panda-api",
+          "region": "australia-southeast2"
+        }
+      },
+      {
+        "source": "/refine_image",
+        "run": {
+          "serviceId": "panda-api",
+          "region": "australia-southeast2"
+        }
+      },
+      {
+        "source": "/upload_image",
+        "run": {
+          "serviceId": "panda-api",
+          "region": "australia-southeast2"
+        }
+      },
+      {
+        "source": "/openai_credit_balance",
+        "run": {
+          "serviceId": "panda-api",
+          "region": "australia-southeast2"
+        }
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }
