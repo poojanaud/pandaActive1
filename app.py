@@ -9,6 +9,7 @@ from demoPanda_api import (
     get_openai_credit_balance
 )
 # Load environment variables
+# Ensure you have a .env file with the necessary variables
 app = FastAPI()
 
 # CORS Configuration
