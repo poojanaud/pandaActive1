@@ -933,30 +933,62 @@
         
         // Product Gallery Functions
         async function fetchProducts() {
-            console.log("Starting fetchProducts...");
-            try {
-                console.log("Making request to:", `${baseUrl}/w`);
-                const response = await fetch(`${baseUrl}/w`);
-                console.log("Response status:", response.status);
-                const data = await response.json();
-                console.log("Response data:", data);
-                
-                if (data.error) {
-                    console.error("API error:", data.error);
-                    showResult(`Error fetching products: ${data.error}`, 'error');
-                    return;
-                }
-                
-                products = data.products || [];
-                console.log("Products fetched:", products);
-                displayProducts(products);
-                document.getElementById('processBatchBtn').disabled = selectedProducts.size === 0;
-                showResult(`Fetched ${products.length} products from Shopify`, 'success');
-            } catch (error) {
-                console.error("Fetch error:", error);
-                showResult(`Network error: ${error.message}`, 'error');
-            }
+    console.log("=== Starting fetchProducts ===");
+    console.log("Base URL:", baseUrl);
+    console.log("Full endpoint:", `${baseUrl}/w`);
+    
+    try {
+        const url = `${baseUrl}/w`;
+        console.log("Making request to:", url);
+        
+        const response = await fetch(url);
+        console.log("Response status:", response.status);
+        console.log("Response status text:", response.statusText);
+        console.log("Response headers:", [...response.headers.entries()]);
+        
+        const contentType = response.headers.get('content-type');
+        console.log("Content-Type:", contentType);
+        
+        // Check if response is OK
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Response not OK. Response text:", errorText);
+            showResult(`HTTP Error ${response.status}: ${response.statusText}`, 'error');
+            return;
+        }
+        
+        // Check if response is JSON
+        if (!contentType || !contentType.includes('application/json')) {
+            const textResponse = await response.text();
+            console.error("Expected JSON but got:", textResponse.substring(0, 1000));
+            showResult(`Expected JSON response but got ${contentType}`, 'error');
+            return;
+        }
+        
+        const data = await response.json();
+        console.log("Response data:", data);
+        
+        if (data.error) {
+            console.error("API error:", data.error);
+            showResult(`Error fetching products: ${data.error}`, 'error');
+            return;
+        }
+        
+        products = data.products || [];
+        console.log("Products array:", products);
+        console.log("Number of products:", products.length);
+        
+        displayProducts(products);
+        document.getElementById('processBatchBtn').disabled = selectedProducts.size === 0;
+        showResult(`Fetched ${products.length} products from Shopify`, 'success');
+        
+    } catch (error) {
+        console.error("Fetch error:", error);
+        console.error("Error stack:", error.stack);
+        showResult(`Network error: ${error.message}`, 'error');
     }
+    console.log("=== fetchProducts completed ===");
+}
         
         function displayProducts(products) {
             const gallery = document.getElementById('productGallery');
