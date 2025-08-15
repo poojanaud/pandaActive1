@@ -32,7 +32,7 @@
         }
         .progress {
             height: 100%;
-            background-color: #0d80f2;
+            background-color: #0df20d;
             width: 0%;
             transition: width 0.3s;
         }
@@ -89,8 +89,8 @@
             margin-top: 15px;
         }
         .upload-btn {
-            background: #0d80f2;
-            color: white;
+            background: #0df20d;
+            color: #111811;
             padding: 8px 16px;
             border: none;
             border-radius: 4px;
@@ -99,7 +99,7 @@
             font-weight: bold;
         }
         .upload-btn:hover {
-            background: #0b6cd1;
+            background: #0cc00b;
         }
         .upload-btn:disabled {
             background: #cccccc;
@@ -135,7 +135,7 @@
         }
         .spinner {
             border: 3px solid #f3f3f3;
-            border-top: 3px solid #0d80f2;
+            border-top: 3px solid #0df20d;
             border-radius: 50%;
             width: 20px;
             height: 20px;
@@ -157,7 +157,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            border: 3px solid #0d80f2;
+            border: 3px solid #0df20d;
             border-radius: 8px;
             pointer-events: none;
         }
@@ -173,44 +173,16 @@
         .tab-content.active {
             display: block;
         }
-        /* New demo tab styles */
-        .demo-tab-container {
-            margin-top: 20px;
-        }
-        .demo-panel {
-            display: none;
-        }
-        .demo-panel.active {
-            display: block;
-        }
-        .demo-nav {
-            display: flex;
-            border-bottom: 1px solid #cedbe8;
-            margin-bottom: 15px;
-        }
-        .demo-nav button {
-            padding: 10px 15px;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-            cursor: pointer;
-            font-weight: bold;
-            color: #49739c;
-        }
-        .demo-nav button.active {
-            color: #0d141c;
-            border-bottom-color: #0d141c;
-        }
     </style>
 </head>
 <body>
     <div
-      class="relative flex size-full min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden"
+      class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden"
       style="--select-button-svg: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724px%27 height=%2724px%27 fill=%27rgb(96,138,96)%27 viewBox=%270 0 256 256%27%3e%3cpath d=%27M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z%27%3e%3c/path%3e%3c/svg%3e'); font-family: Inter, &quot;Noto Sans&quot;, sans-serif;"
     >
       <div class="layout-container flex h-full grow flex-col">
-        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7edf4] px-10 py-3">
-          <div class="flex items-center gap-4 text-[#0d141c]">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f5f0] px-10 py-3">
+          <div class="flex items-center gap-4 text-[#111811]">
             <div class="size-4">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -219,224 +191,63 @@
                 ></path>
               </svg>
             </div>
-            <h2 class="text-[#0d141c] text-lg font-bold leading-tight tracking-[-0.015em]">PandaAI</h2>
+            <h2 class="text-[#111811] text-lg font-bold leading-tight tracking-[-0.015em]">PandaAI</h2>
           </div>
           <button
-            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#e7edf4] text-[#0d141c] text-sm font-bold leading-normal tracking-[0.015em]"
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#f0f5f0] text-[#111811] text-sm font-bold leading-normal tracking-[0.015em]"
             id="creditBalance"
           >
             <span class="truncate">Loading...</span>
           </button>
         </header>
         
-        <!-- Hero Section -->
+        <!-- Moved navigation bar to top -->
+        <div class="pb-3 border-b border-[#dbe6db]">
+          <div class="flex border-b border-[#dbe6db] px-10 gap-8">
+            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-[#111811] text-[#111811] pb-[13px] pt-4" href="#" onclick="showTab('gallery'); return false;">
+              <p class="text-[#111811] text-sm font-bold leading-normal tracking-[0.015em]">Product Gallery</p>
+            </a>
+            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#608a60] pb-[13px] pt-4" href="#" onclick="showTab('enhancement'); return false;">
+              <p class="text-[#608a60] text-sm font-bold leading-normal tracking-[0.015em]">Image Enhancement</p>
+            </a>
+            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#608a60] pb-[13px] pt-4" href="#" onclick="showTab('comparison'); return false;">
+              <p class="text-[#608a60] text-sm font-bold leading-normal tracking-[0.015em]">Before/After</p>
+            </a>
+            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#608a60] pb-[13px] pt-4" href="#" onclick="showTab('review'); return false;">
+              <p class="text-[#608a60] text-sm font-bold leading-normal tracking-[0.015em]">Review &amp; Upload</p>
+            </a>
+          </div>
+        </div>
+        
         <div class="px-40 flex flex-1 justify-center py-5">
           <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-            <div class="@container">
-              <div class="@[480px]:p-4">
-                <div
-                  class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-lg items-center justify-center p-4"
-                  style='background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuD1qTYuTW6FpfuSJCf1Y2nhs8QH-hUXyfp9umkZ97wDKBlSfzPXClvEFZhoWP7x7aAudNrtqI_ACSfqnLt9_kP159-0UeuBgevUexXBoyv_cBLFVtNzu7WxH63cg17Lq27hnVS5ZnjJm8OeXJxmAFCQkpq68XHR5wGoj6FbVBwk1uKEM6-vgg343Fa3rSdy8FgDD42eAqF91UKOAJmB9q6JDnypZnkZIpfCGdrQ3ZmoFtusf2gDHI2OjrFlF495aLJVP3WhibV4FFX-");'
-                >
-                  <div class="flex flex-col gap-2 text-center">
-                    <h1
-                      class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
-                    >
-                      Turn Any Supplier Image Into Studio-Quality in Seconds
-                    </h1>
-                    <h2 class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
-                      PandaAI automatically enhances your product images, making them ready for your Shopify store.
-                    </h2>
-                  </div>
-                  <button
-                    onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})"
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#0d80f2] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
-                  >
-                    <span class="truncate">Try Free Demo</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Progress Teaser Row -->
-            <div class="@container">
-              <div class="relative flex w-full flex-col items-start justify-between gap-3 p-4 @[480px]:flex-row @[480px]:items-center">
-                <div class="flex w-full shrink-[3] items-center justify-between">
-                  <p class="text-[#0d141c] text-base font-medium leading-normal">Before/After Image Slider</p>
-                  <p class="text-[#0d141c] text-sm font-normal leading-normal @[480px]:hidden">50</p>
-                </div>
-                <div class="flex h-4 w-full items-center gap-4">
-                  <div class="flex h-1 flex-1 rounded-sm bg-[#cedbe8]">
-                    <div class="h-full w-[32%] rounded-sm bg-[#0d80f2]"></div>
-                    <div class="relative"><div class="absolute -left-2 -top-1.5 size-4 rounded-full bg-[#0d80f2]"></div></div>
-                  </div>
-                  <p class="text-[#0d141c] text-sm font-normal leading-normal hidden @[480px]:block">50</p>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Interactive Demo Section -->
-            <section id="demo" class="demo-tab-container">
-              <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Quick Interactive Demo</h2>
-              
-              <!-- Demo Navigation -->
-              <div class="demo-nav px-4" id="demo-tabs">
-                <button role="tab" id="tab-fetch" aria-selected="true" aria-controls="panel-fetch" data-tab="fetch" class="active">Fetch</button>
-                <button role="tab" id="tab-refine" aria-selected="false" aria-controls="panel-refine" data-tab="refine" tabindex="-1">Refine</button>
-                <button role="tab" id="tab-review" aria-selected="false" aria-controls="panel-review" data-tab="review" tabindex="-1">Review</button>
-                <button role="tab" id="tab-upload" aria-selected="false" aria-controls="panel-upload" data-tab="upload" tabindex="-1">Upload</button>
-                <button role="tab" id="tab-summary" aria-selected="false" aria-controls="panel-summary" data-tab="summary" tabindex="-1">Summary</button>
-              </div>
-              
-              <!-- Demo Panels -->
-              <div class="px-4">
-                <!-- FETCH Panel -->
-                <div id="panel-fetch" role="tabpanel" aria-labelledby="tab-fetch" class="demo-panel active">
-                  <div class="flex gap-6 justify-between"><p class="text-[#0d141c] text-base font-medium leading-normal">Fetching Images from Google Cloud Variables</p></div>
-                  <div class="rounded bg-[#cedbe8]"><div class="h-2 rounded bg-[#0d80f2]" style="width:25%"></div></div>
-                  <p class="text-[#49739c] text-sm font-normal leading-normal">25% Complete</p>
-                </div>
-                
-                <!-- REFINE Panel -->
-                <div id="panel-refine" role="tabpanel" aria-labelledby="tab-refine" class="demo-panel">
-                  <h3 class="text-[#0d141c] text-lg font-bold leading-tight tracking-[-0.015em] pb-2">Refining Images</h3>
-                  <div class="px-0 py-3 @container">
-                    <div class="overflow-hidden rounded-lg border border-[#cedbe8] bg-white">
-                      <table class="w-full">
-                        <thead>
-                          <tr class="bg-white">
-                            <th class="px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">Image</th>
-                            <th class="px-4 py-3 text-left text-[#0d141c] w-14 text-sm font-medium leading-normal">Before</th>
-                            <th class="px-4 py-3 text-left text-[#0d141c] w-14 text-sm font-medium leading-normal">After</th>
-                            <th class="px-4 py-3 text-left text-[#0d141c] w-[200px] text-sm font-medium leading-normal">Time Elapsed</th>
-                            <th class="px-4 py-3 text-left text-[#0d141c] w-[200px] text-sm font-medium leading-normal">ETA</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="border-t border-[#cedbe8]">
-                            <td class="px-4 py-2 text-[#0d141c] text-sm font-normal leading-normal">Product 1</td>
-                            <td class="px-4 py-2"><div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10" style='background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuB-IC-SXKBqSPoKtgHKMKyBfL8WXlehnSkY91RMno4S093Ua3Rg4EL8bwZoM8Z2xmeDqS0beN7IGi1B5RTHQ_GU-epcgR7ZhIb4QYm5YoIdXZrW1Ud_pWe45JuqE9rX--xGuGJvfDRERuQzeFmb4gPQRayOdOPPZEGDi3UB_lwNADi1FZ0o1FEG4h6KSoSpsfKMCuoIABvPpQ3OOFUdYvzfqXBOKNHgegGAbu2TsDYcyWZ5TF9qGXogJE_m8vAmCkjwKcxDLCTKaAA_")'></div></td>
-                            <td class="px-4 py-2"><div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10" style='background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuCN3SqWfbiBEfjPnRLVvgUr6cq9BK08WrihQ0zoRs5-ywrEB8ztRU737E66ktVmhgb08r4AImkB8_Ihm5VW0huL28bq7X-oDlfxFmwB8MTFysO0C6DJnPKQiyYMpl0twPWFHWoMppfKI4ITR62_shENltR1M1ZEUwkqyiLSAj9q471dMY4ENUQql0GN3DL4SeYdeU-lR3fzw8KRPfBypxIwU4U3I3qgD8O6j-QUZXwgGXlUMoG5XNu9mQYg1qFnkqzvVR5euLy8TZw3")'></div></td>
-                            <td class="px-4 py-2 text-[#49739c] text-sm font-normal leading-normal">00:05</td>
-                            <td class="px-4 py-2 text-[#49739c] text-sm font-normal leading-normal">00:15</td>
-                          </tr>
-                          <tr class="border-t border-[#cedbe8]">
-                            <td class="px-4 py-2 text-[#0d141c] text-sm font-normal leading-normal">Product 2</td>
-                            <td class="px-4 py-2"><div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10" style='background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuASgYuSwkXlqYmpJ6xvbrq-qZCTGJ1UbM-Lhco4nreUw-Fy5gOuR06w3AWGaahq0d8WFACrULwAzulfOSmgw_d7WS83NUgpswVH7xgLDxvON077pTtDuZjhhzgsmWfNLEvFkBz2v-a2J_4gjEhay6-_7DCqc-BLXzhb1BC5_9JsYV8PFeauLLqKrRuJcNEmMsLVguF8z0-PbXC9RWWKJ9_yvQBOZkq1afZ8fxh228wuG8KAxhbWLl2W8eg9CcUT0g6Q_-sHC41FVQ-C")'></div></td>
-                            <td class="px-4 py-2"><div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10" style='background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuBlgAKvKfQVx3jkV5HrN74U6r5Tdjucu1W0nkLkCIlJWlK6BvIWd6Zdl6pZhunM_TX-tqZaui-aw-sVvHhd7rRFJ2mev8_PPxjZT00prwcjsaRwGKBtxbwtAnGs2FOvq5egmVrQ9CXHqY37ZBtgPxYut0wdkJPHl7laTDam4oHCNqnyS6uS1n8WuDqDyVUxD2NyKeR9SKZu6kiflC769cLxyixFvVHKrTv-jtQDTYT_iud56DGThMB5UZeh0p33PVj5UftmOUWjpniu")'></div></td>
-                            <td class="px-4 py-2 text-[#49739c] text-sm font-normal leading-normal">00:08</td>
-                            <td class="px-4 py-2 text-[#49739c] text-sm font-normal leading-normal">00:12</td>
-                          </tr>
-                          <tr class="border-t border-[#cedbe8]">
-                            <td class="px-4 py-2 text-[#0d141c] text-sm font-normal leading-normal">Product 3</td>
-                            <td class="px-4 py-2"><div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10" style='background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuAtmIotWXYmJto06hIZsd_Xi4nrd5Hh8lE83wVQ2AArhfb8mkOC1DNQW6qe88cyEkqfzPRAw0CB65G27O-PjGJKjLOwqj8sHuzQJRHE0DmO26Hswh3Nq56p5rLaAJ4HRDa4Kqya-_3AMBnDgHNp-lYEqI2EOdlrH8qyCfkfje45lE5s44O44LEqhkN72A4QCfaYejQ__6QfB2_yEBNd4IzEFAJuyuU_8SJDk2B3NgPrXd58ergg3SIPcAQu4Sfk4yiuBP-uwH2DlG6k")'></div></td>
-                            <td class="px-4 py-2"><div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10" style='background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuABfbpnAa4LslC1gXxlSCXf6wMuJjaP8eSBMisRzgxq5XMG73ucha9ZWQRQQvR0byynZh_lIfD41QxJmgYRxe-6ll_l3LgIDJs5yefMdR5_lGK5kK5Zzim_tTEEwlobJpF934SykETNUGUJw3B7cUimBI51K9xxQaQoC9YhgKjQS9Vl71Pqpi70CnQvvWGmf8ts04KYGMSuD8ICmdyse4V2cscw59SDIZPWTvYYCL2tMRapblIMGcVZH-F202a9_taE0o-trwgu-Sel")'></div></td>
-                            <td class="px-4 py-2 text-[#49739c] text-sm font-normal leading-normal">00:03</td>
-                            <td class="px-4 py-2 text-[#49739c] text-sm font-normal leading-normal">00:17</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- REVIEW Panel -->
-                <div id="panel-review" role="tabpanel" aria-labelledby="tab-review" class="demo-panel">
-                  <h3 class="text-[#0d141c] text-lg font-bold leading-tight tracking-[-0.015em] pb-2">Review Images</h3>
-                  <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3">
-                    <div class="flex flex-col gap-3 pb-3">
-                      <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" style='background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuA1lKLcU6F5r6li1AvZlV5tx6jjPzvNbK9FIHRfVOITmt_BnKMop13-lFtE5E7yGgTgRBenC8hMdXuGdrZODHqlnEE4YSHfRQkp3UH_S1FQw7VWp45xWNtGbeF8_N4YznpAixf5Ey-8v_rhpjexDTeE8BU4j-sjqOw0YnPSt_XcdCABcq7UYgU3nLG_3sndK6V2ezKVd34nOVCqElmcalrCjiladrvsM41gFAqo4J_VbpTstYeFA4WXvuOxWP-KGuQ07aYzh9yATfJr")'></div>
-                      <p class="text-[#0d141c] text-base font-medium leading-normal">Product 1</p>
-                    </div>
-                    <div class="flex flex-col gap-3 pb-3">
-                      <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" style='background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuARt57ERORoI0sRw3r7ulHhqX_aMY2gXP-R-91fmfXxCRL8y1iAq-T6ES-2pXYnbUWkpTX6abJt7iQL1Qs4wysrEUaCLKMtxC5gQdBFNpu-oXFzFY6Fr9IrCnkRMf8PIzalJ8kp8V_xBqRZCabKPgyeoCEBQYSYwinK6mnVmZP5Tf0uyRKIapYCw2anUFpPrJYbRl2fK0f8igLHyTnDhsrwczANVk_3NVFk41hO6lWvuJoSkU5qmGbcb6ohHcnznDTGx3vNhugTduFZ")'></div>
-                      <p class="text-[#0d141c] text-base font-medium leading-normal">Product 2</p>
-                    </div>
-                    <div class="flex flex-col gap-3 pb-3">
-                      <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" style='background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuAWHLs-hjP0lmNZl4uSTLPo5srNc973ulSvx87WfxwcaF2AW7N2eibBprbuGTYUAOku-3XNPNYKmr9Wx1fZjMjR1lwIx7IxfScm05M-jFAiVJmb3079yEKxcyzio0UT1EV44GYUiQRjAeMRuI0IvMnu07J5yHWNm2XHdBf9GDIa5OmrJANUYqlUsFd359oEFBHZNJqv7dokOgokw5jJxHiNtfPzk4BmZtBQncIPmRFyWWvyTKtgihoICoADb2-d-N6Guom5H-b6H5VW")'></div>
-                      <p class="text-[#0d141c] text-base font-medium leading-normal">Product 3</p>
-                    </div>
-                  </div>
-                  <div class="flex justify-center">
-                    <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 max-w-[480px] justify-center">
-                      <button class="min-w-[120px] rounded-lg h-10 px-4 bg-[#0d80f2] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]">Approve</button>
-                      <button class="min-w-[120px] rounded-lg h-10 px-4 bg-[#e7edf4] text-[#0d141c] text-sm font-bold leading-normal tracking-[0.015em]">Re‑enhance</button>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- UPLOAD Panel -->
-                <div id="panel-upload" role="tabpanel" aria-labelledby="tab-upload" class="demo-panel">
-                  <div class="flex gap-6 justify-between"><p class="text-[#0d141c] text-base font-medium leading-normal">Uploading Images to Shopify</p></div>
-                  <div class="rounded bg-[#cedbe8]"><div class="h-2 rounded bg-[#0d80f2]" style="width:75%"></div></div>
-                  <p class="text-[#49739c] text-sm font-normal leading-normal">75% Complete</p>
-                </div>
-                
-                <!-- SUMMARY Panel -->
-                <div id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" class="demo-panel">
-                  <h3 class="text-[#0d141c] text-lg font-bold leading-tight tracking-[-0.015em] pb-2">Session Summary</h3>
-                  <div class="grid grid-cols-[20%_1fr] gap-x-6">
-                    <div class="col-span-2 grid grid-cols-subgrid border-t border-[#cedbe8] py-5"><p class="text-[#49739c] text-sm font-normal leading-normal">Total Images Processed</p><p class="text-[#0d141c] text-sm font-normal leading-normal">3</p></div>
-                    <div class="col-span-2 grid grid-cols-subgrid border-t border-[#cedbe8] py-5"><p class="text-[#49739c] text-sm font-normal leading-normal">Total Processing Time</p><p class="text-[#0d141c] text-sm font-normal leading-normal">00:26</p></div>
-                    <div class="col-span-2 grid grid-cols-subgrid border-t border-[#cedbe8] py-5"><p class="text-[#49739c] text-sm font-normal leading-normal">Images Ready for Shopify</p><p class="text-[#0d141c] text-sm font-normal leading-normal">3</p></div>
-                  </div>
-                  <div class="flex justify-center">
-                    <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 max-w-[480px] justify-center">
-                      <button class="min-w-[150px] rounded-lg h-10 px-4 bg-[#e7edf4] text-[#0d141c] text-sm font-bold leading-normal tracking-[0.015em]">Download CSV Log</button>
-                      <button class="min-w-[150px] rounded-lg h-10 px-4 bg-[#0d80f2] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]">View in Shopify</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- A11y helper text for keyboard users -->
-              <p class="sr-only" id="demo-instructions">Use Left/Right arrow keys to switch tabs. Press Enter or Space to activate.</p>
-            </section>
-            
-            <!-- Main Navigation Bar -->
-            <div class="pb-3 border-b border-[#cedbe8]">
-              <div class="flex border-b border-[#cedbe8] px-4 gap-8">
-                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-[#0d141c] text-[#0d141c] pb-[13px] pt-4" href="#" onclick="showTab('gallery'); return false;">
-                  <p class="text-[#0d141c] text-sm font-bold leading-normal tracking-[0.015em]">Product Gallery</p>
-                </a>
-                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#49739c] pb-[13px] pt-4" href="#" onclick="showTab('enhancement'); return false;">
-                  <p class="text-[#49739c] text-sm font-bold leading-normal tracking-[0.015em]">Image Enhancement</p>
-                </a>
-                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#49739c] pb-[13px] pt-4" href="#" onclick="showTab('comparison'); return false;">
-                  <p class="text-[#49739c] text-sm font-bold leading-normal tracking-[0.015em]">Before/After</p>
-                </a>
-                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#49739c] pb-[13px] pt-4" href="#" onclick="showTab('review'); return false;">
-                  <p class="text-[#49739c] text-sm font-bold leading-normal tracking-[0.015em]">Review & Upload</p>
-                </a>
-              </div>
-            </div>
-            
             <!-- Product Gallery Tab -->
             <div id="gallery-tab" class="tab-content active">
               <div class="flex flex-wrap justify-between gap-3 p-4">
                 <div class="flex min-w-72 flex-col gap-3">
-                  <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight">Product Gallery</p>
-                  <p class="text-[#49739c] text-sm font-normal leading-normal">Select products to enhance</p>
+                  <p class="text-[#111811] tracking-light text-[32px] font-bold leading-tight">Product Gallery</p>
+                  <p class="text-[#608a60] text-sm font-normal leading-normal">Select products to enhance</p>
                 </div>
               </div>
               
               <div class="flex justify-stretch">
                 <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 justify-start">
                   <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#e7edf4] text-[#0d141c] text-sm font-bold leading-normal tracking-[0.015em]"
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#f0f5f0] text-[#111811] text-sm font-bold leading-normal tracking-[0.015em]"
                     id="fetchProductsBtn"
                     onclick="fetchProducts()"
                   >
                     <span class="truncate">Fetch Products</span>
                   </button>
                   <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#e7edf4] text-[#0d141c] text-sm font-bold leading-normal tracking-[0.015em]"
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#f0f5f0] text-[#111811] text-sm font-bold leading-normal tracking-[0.015em]"
                     id="selectAllBtn"
                     onclick="selectAll()"
                   >
                     <span class="truncate">Select All (<span id="selectedCount">0</span>)</span>
                   </button>
                   <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#0d80f2] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]"
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#0df20d] text-[#111811] text-sm font-bold leading-normal tracking-[0.015em]"
                     id="processBatchBtn"
                     onclick="processBatch()"
                     disabled
@@ -450,7 +261,7 @@
                 <label class="flex flex-col min-w-40 flex-1">
                   <select
                     id="promptSelect"
-                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d141c] focus:outline-0 focus:ring-0 border border-[#cedbe8] bg-white focus:border-[#cedbe8] h-14 bg-[image:--select-button-svg] placeholder:text-[#49739c] p-[15px] text-base font-normal leading-normal"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111811] focus:outline-0 focus:ring-0 border border-[#dbe6db] bg-white focus:border-[#dbe6db] h-14 bg-[image:--select-button-svg] placeholder:text-[#608a60] p-[15px] text-base font-normal leading-normal"
                   >
                     <option value="Make this image look more professional and clean">Professional & Clean</option>
                     <option value="Enhance the product details and make it stand out">Enhance Details</option>
@@ -465,12 +276,12 @@
                   <textarea
                     id="customPrompt"
                     placeholder="Custom prompt"
-                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d141c] focus:outline-0 focus:ring-0 border border-[#cedbe8] bg-white focus:border-[#cedbe8] min-h-36 placeholder:text-[#49739c] p-[15px] text-base font-normal leading-normal"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111811] focus:outline-0 focus:ring-0 border border-[#dbe6db] bg-white focus:border-[#dbe6db] min-h-36 placeholder:text-[#608a60] p-[15px] text-base font-normal leading-normal"
                   ></textarea>
                 </label>
               </div>
               
-              <h3 class="text-[#0d141c] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Products</h3>
+              <h3 class="text-[#111811] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Products</h3>
               
               <div class="progress-container" id="progressContainer">
                 <h3>Processing Progress</h3>
@@ -490,8 +301,8 @@
             <div id="enhancement-tab" class="tab-content">
               <div class="flex flex-wrap justify-between gap-3 p-4">
                 <div class="flex min-w-72 flex-col gap-3">
-                  <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight">Image Enhancement</p>
-                  <p class="text-[#49739c] text-sm font-normal leading-normal">Enhance individual images</p>
+                  <p class="text-[#111811] tracking-light text-[32px] font-bold leading-tight">Image Enhancement</p>
+                  <p class="text-[#608a60] text-sm font-normal leading-normal">Enhance individual images</p>
                 </div>
               </div>
               
@@ -501,7 +312,7 @@
                     id="imageUrl"
                     type="text"
                     placeholder="Enter image URL"
-                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d141c] focus:outline-0 focus:ring-0 border border-[#cedbe8] bg-white focus:border-[#cedbe8] h-14 placeholder:text-[#49739c] p-[15px] text-base font-normal leading-normal"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111811] focus:outline-0 focus:ring-0 border border-[#dbe6db] bg-white focus:border-[#dbe6db] h-14 placeholder:text-[#608a60] p-[15px] text-base font-normal leading-normal"
                   >
                 </label>
               </div>
@@ -511,7 +322,7 @@
                   <textarea
                     id="prompt"
                     placeholder="Describe how you want the image to be refined"
-                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d141c] focus:outline-0 focus:ring-0 border border-[#cedbe8] bg-white focus:border-[#cedbe8] min-h-36 placeholder:text-[#49739c] p-[15px] text-base font-normal leading-normal"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111811] focus:outline-0 focus:ring-0 border border-[#dbe6db] bg-white focus:border-[#dbe6db] min-h-36 placeholder:text-[#608a60] p-[15px] text-base font-normal leading-normal"
                   >Make this image look more professional and clean</textarea>
                 </label>
               </div>
@@ -519,14 +330,14 @@
               <div class="flex justify-stretch px-4 py-3">
                 <div class="flex flex-1 gap-3 flex-wrap justify-start">
                   <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#e7edf4] text-[#0d141c] text-sm font-bold leading-normal tracking-[0.015em]"
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#f0f5f0] text-[#111811] text-sm font-bold leading-normal tracking-[0.015em]"
                     id="loadBtn"
                     onclick="loadImage()"
                   >
                     <span class="truncate">Load Image</span>
                   </button>
                   <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#0d80f2] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]"
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#0df20d] text-[#111811] text-sm font-bold leading-normal tracking-[0.015em]"
                     id="refineBtn"
                     onclick="refineImage()"
                     disabled
@@ -558,8 +369,8 @@
             <div id="comparison-tab" class="tab-content">
               <div class="flex flex-wrap justify-between gap-3 p-4">
                 <div class="flex min-w-72 flex-col gap-3">
-                  <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight">Before/After Comparison</p>
-                  <p class="text-[#49739c] text-sm font-normal leading-normal">Compare original and refined images</p>
+                  <p class="text-[#111811] tracking-light text-[32px] font-bold leading-tight">Before/After Comparison</p>
+                  <p class="text-[#608a60] text-sm font-normal leading-normal">Compare original and refined images</p>
                 </div>
               </div>
               
@@ -572,8 +383,8 @@
             <div id="review-tab" class="tab-content">
               <div class="flex flex-wrap justify-between gap-3 p-4">
                 <div class="flex min-w-72 flex-col gap-3">
-                  <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight">Review & Upload</p>
-                  <p class="text-[#49739c] text-sm font-normal leading-normal">Review and upload refined images</p>
+                  <p class="text-[#111811] tracking-light text-[32px] font-bold leading-tight">Review & Upload</p>
+                  <p class="text-[#608a60] text-sm font-normal leading-normal">Review and upload refined images</p>
                 </div>
               </div>
               
@@ -588,256 +399,11 @@
             </div>
             
             <div id="result" class="px-4"></div>
-            
-            <!-- Core Features Section -->
-            <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Core Features</h2>
-            <div class="flex flex-col gap-10 px-4 py-10 @container">
-              <div class="flex flex-col gap-4">
-                <h1
-                  class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight @[480px]:text-4xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] max-w-[720px]"
-                >
-                  Key Features to Elevate Your Product Imagery
-                </h1>
-                <p class="text-[#0d141c] text-base font-normal leading-normal max-w-[720px]">
-                  PandaAI offers a suite of powerful tools designed to transform your product images effortlessly.
-                </p>
-              </div>
-              <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-0">
-                <div class="flex flex-1 gap-3 rounded-lg border border-[#cedbe8] bg-slate-50 p-4 flex-col">
-                  <div class="text-[#0d141c]" data-icon="MagicWand" data-size="24px" data-weight="regular">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M48,64a8,8,0,0,1,8-8H72V40a8,8,0,0,1,16,0V56h16a8,8,0,0,1,0,16H88V88a8,8,0,0,1-16,0V72H56A8,8,0,0,1,48,64ZM184,192h-8v-8a8,8,0,0,0-16,0v8h-8a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0v-8h8a8,8,0,0,0,0-16Zm56-48H224V128a8,8,0,0,0-16,0v16H192a8,8,0,0,0,0,16h16v16a8,8,0,0,0,16,0V160h16a8,8,0,0,0,0-16ZM219.31,80,80,219.31a16,16,0,0,1-22.62,0L36.68,198.63a16,16,0,0,1,0-22.63L176,36.69a16,16,0,0,1,22.63,0l20.68,20.68A16,16,0,0,1,219.31,80Zm-54.63,32L144,91.31l-96,96L68.68,208ZM208,68.69,187.31,48l-32,32L176,100.69Z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div class="flex flex-col gap-1">
-                    <h2 class="text-[#0d141c] text-base font-bold leading-tight">Instant Background Cleanup</h2>
-                    <p class="text-[#49739c] text-sm font-normal leading-normal">Remove distracting backgrounds instantly for a clean, professional look.</p>
-                  </div>
-                </div>
-                <div class="flex flex-1 gap-3 rounded-lg border border-[#cedbe8] bg-slate-50 p-4 flex-col">
-                  <div class="text-[#0d141c]" data-icon="Palette" data-size="24px" data-weight="regular">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M200.77,53.89A103.27,103.27,0,0,0,128,24h-1.07A104,104,0,0,0,24,128c0,43,26.58,79.06,69.36,94.17A32,32,0,0,0,136,192a16,16,0,0,1,16-16h46.21a31.81,31.81,0,0,0,31.2-24.88,104.43,104.43,0,0,0,2.59-24A103.28,103.28,0,0,0,200.77,53.89Zm13,93.71A15.89,15.89,0,0,1,198.21,160H152a32,32,0,0,0-32,32,16,16,0,0,1-21.31,15.07C62.49,194.3,40,164,40,128a88,88,0,0,1,87.09-88h.9a88.35,88.35,0,0,1,88,87.25A88.86,88.86,0,0,1,213.81,147.6ZM140,76a12,12,0,1,1-12-12A12,12,0,0,1,140,76ZM96,100A12,12,0,1,1,84,88,12,12,0,0,1,96,100Zm0,56a12,12,0,1,1-12-12A12,12,0,0,1,96,156Zm88-56a12,12,0,1,1-12-12A12,12,0,0,1,184,100Z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div class="flex flex-col gap-1">
-                    <h2 class="text-[#0d141c] text-base font-bold leading-tight">Consistent Branding</h2>
-                    <p class="text-[#49739c] text-sm font-normal leading-normal">Maintain a consistent visual identity across all your product images.</p>
-                  </div>
-                </div>
-                <div class="flex flex-1 gap-3 rounded-lg border border-[#cedbe8] bg-slate-50 p-4 flex-col">
-                  <div class="text-[#0d141c]" data-icon="Tray" data-size="24px" data-weight="regular">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,16V152h-28.7A15.86,15.86,0,0,0,168,156.69L148.69,176H107.31L88,156.69A15.86,15.86,0,0,0,76.69,152H48V48Zm0,160H48V168H76.69L96,187.31A15.86,15.86,0,0,0,107.31,192h41.38A15.86,15.86,0,0,0,160,187.31L179.31,168H208v40Z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div class="flex flex-col gap-1">
-                    <h2 class="text-[#0d141c] text-base font-bold leading-tight">Batch Processing</h2>
-                    <p class="text-[#49739c] text-sm font-normal leading-normal">Enhance multiple images simultaneously, saving time and effort.</p>
-                  </div>
-                </div>
-                <div class="flex flex-1 gap-3 rounded-lg border border-[#cedbe8] bg-slate-50 p-4 flex-col">
-                  <div class="text-[#0d141c]" data-icon="MagnifyingGlass" data-size="24px" data-weight="regular">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div class="flex flex-col gap-1">
-                    <h2 class="text-[#0d141c] text-base font-bold leading-tight">SEO-Optimised Output</h2>
-                    <p class="text-[#49739c] text-sm font-normal leading-normal">Generate images optimised for search engines, improving visibility.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">How It Works</h2>
-            <div class="grid grid-cols-[40px_1fr] gap-x-2 px-4">
-              <div class="flex flex-col items-center gap-1 pt-3">
-                <div class="text-[#0d141c]" data-icon="TextHThree" data-size="24px" data-weight="regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                    <path
-                      d="M152,56V176a8,8,0,0,1-16,0V124H48v52a8,8,0,0,1-16,0V56a8,8,0,0,1,16,0v52h88V56a8,8,0,0,1,16,0Zm73.52,90.63,21-30A8,8,0,0,0,240,104H192a8,8,0,0,0,0,16h32.63l-19.18,27.41A8,8,0,0,0,212,160a20,20,0,1,1-14.29,34,8,8,0,1,0-11.42,11.19A36,36,0,0,0,248,180,36.07,36.07,0,0,0,225.52,146.63Z"
-                    ></path>
-                  </svg>
-                </div>
-                <div class="w-[1.5px] bg-[#cedbe8] h-2 grow"></div>
-              </div>
-              <div class="flex flex-1 flex-col py-3">
-                <p class="text-[#0d141c] text-base font-medium leading-normal">Upload/Connect</p>
-                <p class="text-[#49739c] text-base font-normal leading-normal">Easily upload images or connect directly to your Shopify store.</p>
-              </div>
-              <div class="flex flex-col items-center gap-1">
-                <div class="w-[1.5px] bg-[#cedbe8] h-2"></div>
-                <div class="text-[#0d141c]" data-icon="TextHThree" data-size="24px" data-weight="regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                    <path
-                      d="M152,56V176a8,8,0,0,1-16,0V124H48v52a8,8,0,0,1-16,0V56a8,8,0,0,1,16,0v52h88V56a8,8,0,0,1,16,0Zm73.52,90.63,21-30A8,8,0,0,0,240,104H192a8,8,0,0,0,0,16h32.63l-19.18,27.41A8,8,0,0,0,212,160a20,20,0,1,1-14.29,34,8,8,0,1,0-11.42,11.19A36,36,0,0,0,248,180,36.07,36.07,0,0,0,225.52,146.63Z"
-                    ></path>
-                  </svg>
-                </div>
-                <div class="w-[1.5px] bg-[#cedbe8] h-2 grow"></div>
-              </div>
-              <div class="flex flex-1 flex-col py-3">
-                <p class="text-[#0d141c] text-base font-medium leading-normal">Enhance</p>
-                <p class="text-[#49739c] text-base font-normal leading-normal">Our AI algorithms automatically refine your images, removing backgrounds and enhancing details.</p>
-              </div>
-              <div class="flex flex-col items-center gap-1 pb-3">
-                <div class="w-[1.5px] bg-[#cedbe8] h-2"></div>
-                <div class="text-[#0d141c]" data-icon="TextHThree" data-size="24px" data-weight="regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                    <path
-                      d="M152,56V176a8,8,0,0,1-16,0V124H48v52a8,8,0,0,1-16,0V56a8,8,0,0,1,16,0v52h88V56a8,8,0,0,1,16,0Zm73.52,90.63,21-30A8,8,0,0,0,240,104H192a8,8,0,0,0,0,16h32.63l-19.18,27.41A8,8,0,0,0,212,160a20,20,0,1,1-14.29,34,8,8,0,1,0-11.42,11.19A36,36,0,0,0,248,180,36.07,36.07,0,0,0,225.52,146.63Z"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-              <div class="flex flex-1 flex-col py-3">
-                <p class="text-[#0d141c] text-base font-medium leading-normal">Export</p>
-                <p class="text-[#49739c] text-base font-normal leading-normal">Export your enhanced images directly to your store or download them for use elsewhere.</p>
-              </div>
-            </div>
-            
-            <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Benefits for Store Owners</h2>
-            <div class="flex flex-col gap-10 px-4 py-10 @container">
-              <div class="flex flex-col gap-4">
-                <h1
-                  class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight @[480px]:text-4xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] max-w-[720px]"
-                >
-                  Transform Your Product Images, Transform Your Business
-                </h1>
-                <p class="text-[#0d141c] text-base font-normal leading-normal max-w-[720px]">
-                  PandaAI empowers store owners to create stunning product visuals that drive engagement and growth.
-                </p>
-              </div>
-              <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-0">
-                <div class="flex flex-1 gap-3 rounded-lg border border-[#cedbe8] bg-slate-50 p-4 flex-col">
-                  <div class="text-[#0d141c]" data-icon="ClockCounterClockwise" data-size="24px" data-weight="regular">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M136,80v43.47l36.12,21.67a8,8,0,0,1-8.24,13.72l-40-24A8,8,0,0,1,120,128V80a8,8,0,0,1,16,0Zm-8-48A95.44,95.44,0,0,0,60.08,60.15C52.81,67.51,46.35,74.59,40,82V64a8,8,0,0,0-16,0v40a8,8,0,0,0,8,8H72a8,8,0,0,0,0-16H49c7.15-8.42,14.27-16.35,22.39-24.57a80,80,0,1,1,1.66,114.75,8,8,0,1,0-11,11.64A96,96,0,1,0,128,32Z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div class="flex flex-col gap-1">
-                    <h2 class="text-[#0d141c] text-base font-bold leading-tight">Time-Saving</h2>
-                    <p class="text-[#49739c] text-sm font-normal leading-normal">Automate image refinement and free up valuable time for other tasks.</p>
-                  </div>
-                </div>
-                <div class="flex flex-1 gap-3 rounded-lg border border-[#cedbe8] bg-slate-50 p-4 flex-col">
-                  <div class="text-[#0d141c]" data-icon="RocketLaunch" data-size="24px" data-weight="regular">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M103.77,185.94C103.38,187.49,93.63,224,40,224a8,8,0,0,1-8-8c0-53.63,36.51-63.38,38.06-63.77a8,8,0,0,1,3.88,15.53c-.9.25-22.42,6.54-25.56,39.86C81.7,204.48,88,183,88.26,182a8,8,0,0,1,15.51,4Zm93-67.4L192,123.31v58.33A15.91,15.91,0,0,1,187.32,193L153,227.3A15.91,15.91,0,0,1,141.7,232a16.11,16.11,0,0,1-5.1-.83,15.94,15.94,0,0,1-10.78-12.92l-5.37-38.49L76.24,135.55l-38.47-5.37A16,16,0,0,1,28.7,103L63,68.68A15.91,15.91,0,0,1,74.36,64h58.33l4.77-4.77c26.68-26.67,58.83-27.82,71.41-27.07a16,16,0,0,1,15,15C224.6,59.71,223.45,91.86,196.78,118.54ZM40,114.34l37.15,5.18L116.69,80H74.36ZM91.32,128,128,164.68l57.45-57.45a76.46,76.46,0,0,0,22.42-59.16,76.65,76.65,0,0,0-59.11,22.47ZM176,139.31l-39.53,39.53L141.67,216,176,181.64Z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div class="flex flex-col gap-1">
-                    <h2 class="text-[#0d141c] text-base font-bold leading-tight">Faster Launches</h2>
-                    <p class="text-[#49739c] text-sm font-normal leading-normal">Get your products to market quicker with high-quality, ready-to-use images.</p>
-                  </div>
-                </div>
-                <div class="flex flex-1 gap-3 rounded-lg border border-[#cedbe8] bg-slate-50 p-4 flex-col">
-                  <div class="text-[#0d141c]" data-icon="CurrencyDollar" data-size="24px" data-weight="regular">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M152,120H136V56h8a32,32,0,0,1,32,32,8,8,0,0,0,16,0,48.05,48.05,0,0,0-48-48h-8V24a8,8,0,0,0-16,0V40h-8a48,48,0,0,0,0,96h8v64H104a32,32,0,0,1-32-32,8,8,0,0,0-16,0,48.05,48.05,0,0,0,48,48h16v16a8,8,0,0,0,16,0V216h16a48,48,0,0,0,0-96Zm-40,0a32,32,0,0,1,0-64h8v64Zm40,80H136V136h16a32,32,0,0,1,0,64Z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div class="flex flex-col gap-1">
-                    <h2 class="text-[#0d141c] text-base font-bold leading-tight">Increased Sales</h2>
-                    <p class="text-[#49739c] text-sm font-normal leading-normal">Attract more customers and boost conversions with visually appealing product listings.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Example Gallery</h2>
-            <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
-              <div class="flex flex-col gap-3"><div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"></div></div>
-              <div class="flex flex-col gap-3"><div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"></div></div>
-              <div class="flex flex-col gap-3"><div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"></div></div>
-              <div class="flex flex-col gap-3"><div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"></div></div>
-              <div class="flex flex-col gap-3"><div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"></div></div>
-              <div class="flex flex-col gap-3"><div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"></div></div>
-            </div>
-            <p class="text-[#49739c] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center">Hover to view AI process stages</p>
-            
-            <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Early Access for VCs</h2>
-            <p class="text-[#0d141c] text-base font-normal leading-normal pb-3 pt-1 px-4 text-center">
-              Join our beta program and experience the power of PandaAI. Currently being used by over 1000 stores.
-            </p>
-            <div class="flex px-4 py-3 justify-center">
-              <button
-                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#0d80f2] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]"
-              >
-                <span class="truncate">Sign Up for Early Access</span>
-              </button>
-            </div>
-            
-            <div class="@container">
-              <div class="flex flex-col justify-end gap-6 px-4 py-10 @[480px]:gap-8 @[480px]:px-10 @[480px]:py-20">
-                <div class="flex flex-col gap-2 text-center">
-                  <h1
-                    class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight @[480px]:text-4xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] max-w-[720px]"
-                  >
-                    Ready to Elevate Your Product Imagery?
-                  </h1>
-                  <p class="text-[#0d141c] text-base font-normal leading-normal max-w-[720px">Get in touch to learn more about how PandaAI can transform your business.</p>
-                </div>
-                <div class="flex flex-1 justify-center">
-                  <div class="flex justify-center">
-                    <button
-                      class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#0d80f2] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em] grow"
-                    >
-                      <span class="truncate">Contact Us</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <footer class="flex flex-col gap-6 px-5 py-10 text-center @container">
-              <div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
-                <a class="text-[#49739c] text-base font-normal leading-normal min-w-40" href="#">Contact</a>
-                <a class="text-[#49739c] text-base font-normal leading-normal min-w-40" href="#">Terms of Service</a>
-                <a class="text-[#49739c] text-base font-normal leading-normal min-w-40" href="#">Privacy Policy</a>
-              </div>
-              <div class="flex flex-wrap justify-center gap-4">
-                <a href="#">
-                  <div class="text-[#49739c]" data-icon="TwitterLogo" data-size="24px" data-weight="regular">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M247.39,68.94A8,8,0,0,0,240,64H209.57A48.66,48.66,0,0,0,168.1,40a46.91,46.91,0,0,0-33.75,13.7A47.9,47.9,0,0,0,120,88v6.09C79.74,83.47,46.81,50.72,46.46,50.37a8,8,0,0,0-13.65,4.92c-4.31,47.79,9.57,79.77,22,98.18a110.93,110.93,0,0,0,21.88,24.2c-15.23,17.53-39.21,26.74-39.47,26.84a8,8,0,0,0-3.85,11.93c.75,1.12,3.75,5.05,11.08,8.72C53.51,229.7,65.48,232,80,232c70.67,0,129.72-54.42,135.75-124.44l29.91-29.9A8,8,0,0,0,247.39,68.94Zm-45,29.41a8,8,0,0,0-2.32,5.14C196,166.58,143.28,216,80,216c-10.56,0-18-1.4-23.22-3.08,11.51-6.25,27.56-17,37.88-32.48A8,8,0,0,0,92,169.08c-.47-.27-43.91-26.34-44-96,16,13,45.25,33.17,78.67,38.79A8,8,0,0,0,136,104V88a32,32,0,0,1,9.6-22.92A30.94,30.94,0,0,1,167.9,56c12.66.16,24.49,7.88,29.44,19.21A8,8,0,0,0,204.67,80h16Z"
-                      ></path>
-                    </svg>
-                  </div>
-                </a>
-                <a href="#">
-                  <div class="text-[#49739c]" data-icon="InstagramLogo" data-size="24px" data-weight="regular">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"
-                      ></path>
-                    </svg>
-                  </div>
-                </a>
-              </div>
-              <p class="text-[#49739c] text-base font-normal leading-normal">@2024 PandaAI. All rights reserved.</p>
-            </footer>
           </div>
         </div>
       </div>
     </div>
-    
+
     <script>
         // Replace with your custom domain - UPDATE THIS LINE
         const baseUrl = 'https://www.pandavision.xyz'; 
@@ -876,7 +442,7 @@
             }
         }
         
-        // Tab functionality for main navigation
+        // Tab functionality
         function showTab(tabName) {
             // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(tab => {
@@ -885,51 +451,17 @@
             
             // Remove active class from all tabs
             document.querySelectorAll('.flex.border-b a').forEach(tab => {
-                tab.classList.remove('border-b-[#0d141c]', 'text-[#0d141c]');
-                tab.classList.add('border-b-transparent', 'text-[#49739c]');
+                tab.classList.remove('border-b-[#111811]', 'text-[#111811]');
+                tab.classList.add('border-b-transparent', 'text-[#608a60]');
             });
             
             // Show selected tab content
             document.getElementById(`${tabName}-tab`).classList.add('active');
             
             // Add active class to clicked tab
-            event.target.closest('a').classList.remove('border-b-transparent', 'text-[#49739c]');
-            event.target.closest('a').classList.add('border-b-[#0d141c]', 'text-[#0d141c]');
+            event.target.closest('a').classList.remove('border-b-transparent', 'text-[#608a60]');
+            event.target.closest('a').classList.add('border-b-[#111811]', 'text-[#111811]');
         }
-        
-        // Demo tab functionality
-        (function(){
-            const tablist = document.getElementById('demo-tabs');
-            if (!tablist) return;
-            
-            const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
-            const panels = ['fetch','refine','review','upload','summary'].map(id => document.getElementById('panel-'+id));
-            function setActive(targetId){
-                tabs.forEach(tab => {
-                    const active = tab.dataset.tab === targetId;
-                    tab.setAttribute('aria-selected', active);
-                    tab.setAttribute('tabindex', active ? '0' : '-1');
-                    tab.classList.toggle('active', active);
-                });
-                panels.forEach(p => { 
-                    if (p) p.classList.toggle('active', p.id === 'panel-'+targetId); 
-                });
-                const activeTab = tabs.find(t => t.dataset.tab === targetId);
-                if(activeTab) activeTab.focus();
-            }
-            // Click activation
-            tabs.forEach(tab => tab.addEventListener('click', e => setActive(e.currentTarget.dataset.tab)));
-            // Keyboard nav: Left/Right
-            tablist.addEventListener('keydown', e => {
-                const idx = tabs.indexOf(document.activeElement);
-                if(idx === -1) return;
-                if(e.key === 'ArrowRight'){ e.preventDefault(); (tabs[idx+1] || tabs[0]).focus(); }
-                if(e.key === 'ArrowLeft'){ e.preventDefault(); (tabs[idx-1] || tabs[tabs.length-1]).focus(); }
-                if(e.key === 'Home'){ e.preventDefault(); tabs[0].focus(); }
-                if(e.key === 'End'){ e.preventDefault(); tabs[tabs.length-1].focus(); }
-                if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); setActive(document.activeElement.dataset.tab); }
-            });
-        })();
         
         // Product Gallery Functions
         async function fetchProducts() {
@@ -976,8 +508,8 @@
                         style='background-image: url("${imageUrl}");'
                     ></div>
                     <div>
-                        <p class="text-[#0d141c] text-base font-medium leading-normal">${product.title}</p>
-                        <p class="text-[#49739c] text-sm font-normal leading-normal capitalize">${status}</p>
+                        <p class="text-[#111811] text-base font-medium leading-normal">${product.title}</p>
+                        <p class="text-[#608a60] text-sm font-normal leading-normal capitalize">${status}</p>
                     </div>
                 `;
                 
